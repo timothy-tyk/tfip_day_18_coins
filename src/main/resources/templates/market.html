@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .icon {
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+    <title>Coin Market</title>
+  </head>
+  <body data-th-obj="market">
+    <h1>Coin Market</h1>
+    <table border="black 1px">
+      <tr>
+        <td>Symbol</td>
+        <td>Name</td>
+        <td>Icon</td>
+        <td>Price</td>
+        <td>Change</td>
+        <td>Add</td>
+      </tr>
+      <tr data-th-each="coin : ${market}">
+        <td><span data-th-text="${coin.getSymbol()}"></span></td>
+        <td><span data-th-text="${coin.getName()}"></span></td>
+        <td><img data-th-src="${coin.getIconUrl()}" class="icon" /></td>
+        <td><span data-th-text="${coin.getPrice()}"></span></td>
+        <td><span data-th-text="${coin.getChange()}"></span></td>
+        <td>
+          <form
+            method="post"
+            data-th-object="${coin}"
+            data-th-action="@{/coins}"
+          >
+            <input
+              type="hidden"
+              name="symbol"
+              data-th-value="${coin.getSymbol()}"
+            />
+            <input
+              type="hidden"
+              name="name"
+              data-th-value="${coin.getName()}"
+            />
+            <input
+              type="hidden"
+              name="iconUrl"
+              data-th-value="${coin.getIconUrl()}"
+            />
+            <input
+              type="hidden"
+              name="price"
+              data-th-value="${coin.getPrice()}"
+            />
+            <input
+              type="hidden"
+              name="change"
+              data-th-value="${coin.getChange()}"
+            />
+            <input type="submit" data-th-value="${coin.getSymbol()}" />
+          </form>
+        </td>
+      </tr>
+    </table>
+    <br />
+    <hr />
+    <button type="submit"><a data-th-href="@{/list}">See List</a></button>
+  </body>
+</html>
